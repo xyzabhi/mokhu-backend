@@ -38,9 +38,21 @@ fmt:
 lint:
 	golangci-lint run
 
+# Start MailHog for email testing
+mailhog:
+	docker-compose up mailhog -d
+
+# Start all services (database, redis, mailhog)
+services:
+	docker-compose up -d
+
+# Stop all services
+stop-services:
+	docker-compose down
+
 # Install development tools
 install-tools:
 	go install github.com/cosmtrek/air@latest
 	go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 
-.PHONY: build run dev clean deps test test-coverage fmt lint install-tools
+.PHONY: build run dev clean deps test test-coverage fmt lint install-tools mailhog services stop-services
